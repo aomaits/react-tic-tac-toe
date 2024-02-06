@@ -6,6 +6,7 @@ export default function Game() {
   const [currentMove, setCurrentMove] =useState(0);
   const xIsNext = currentMove % 2 ===0; 
   const currentSquares = history[currentMove];
+  const currentMoveLine = ("You are currently at move # " + currentMove)
 
   function handlePlay(nextSquares) { //takes in the recent copy of squares array from the Board child element, nextSquares
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]; //spread out the history array then add in the currentMove number, also takes in the board's array
@@ -19,15 +20,16 @@ export default function Game() {
 
   const moves = history.map((squares, move) => {
     let description;
+    let moveReminder;
     if (move > 0) {
       description = 'Go to move #' + move;
-    } else {
+    } if (move === 0) {
       description = 'Go to game start';
-    }
+    } 
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+        <li key={move}>
+          <button onClick={() => jumpTo(move)}>{description}</button>
+        </li>
     )
   });
 
@@ -37,6 +39,9 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
+        <div>
+          {currentMove && currentMoveLine}
+          </div>
         <ol>{moves}</ol>
       </div>
     </div>
