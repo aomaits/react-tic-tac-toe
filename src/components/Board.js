@@ -6,10 +6,9 @@ export default function Board({xIsNext, squares, onPlay}) {
 
   function handleClick(i) {
     if (squares[i]  || declareWinner(squares)) {
-      return; // if squares array at index position is not null or a winner has been declared, return out of the handleClick function (board square has already been taken)
+      return; // if squares array at index position is not null (board square has already been taken) or a winner has been declared, return out of the handleClick function 
     }
     const nextSquares = squares.slice(); //nextSquares is a copy of the squares array. Immutability in play here- avoiding direct data mutation
-    nextSquares[i] = "X"; //updating the array's selected index element to "X"
 
     if (xIsNext) {
       nextSquares[i] = "X";
